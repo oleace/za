@@ -17,7 +17,7 @@
 
 </head>
 <body>
-Welcome to BOYA SYNC Service:
+Welcome to SYNC Service:
 当前版本：0.0.1 build-<%=new Date().getTime()%>
 </body>
 </html>

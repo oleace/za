@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+    <!--base beans of framework start -->
+
+    <bean id="ifengSyn" class="com.boya.kites.reel.sync.job.NewsJob">
+        <property name="vendorService" ref="vendorService"/>
+        <property name="newsService" ref="newsService"/>
+    </bean>
+
+    <bean id="tencentParser" class="com.boya.kites.reel.sync.TencentParser">
+        <property name="newsService" ref="newsService"/>
+    </bean>
+
+    <bean id="SpringQtzJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="ifengSyn"/>
+        </property>
+        <property name="targetMethod">
+            <value>doJob</value>
+        </property>
+    </bean>
+
+    <bean id="CronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="SpringQtzJobMethod"></property>
+        <property name="cronExpression" value="0 0/5 * * * ?"></property>
+    </bean>
+
+    <!-- ======================== 调度工厂 ======================== -->
+    <bean id="SpringJobSchedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="CronTriggerBean"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- ======================== 调度队列 start ======================== -->
+
+    <!--<bean id="imgDownLoadWorker" class="com.boya.kites.reel.task.queue.ImgDownLoadWorker">-->
+    <!--</bean>-->
+    <!--<bean id="taskManager" class="com.boya.kites.reel.task.queue.LocalTaskManager" factory-method="getInstance">-->
+    <!--</bean>-->
+    <!--<bean id="taskScheduler" class="com.boya.kites.reel.task.queue.TaskScheduler">-->
+        <!--<property name="taskManager" ref="taskManager"/>-->
+        <!--<property name="workers">-->
+            <!--<list>-->
+                <!--<ref bean="imgDownLoadWorker"/>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!-- ======================== 调度工厂 end ======================== -->
+
+    <!-- 视频直播定制执行任务 -->
+    <!--<bean id="tvBackExpire" class="com.boya.kites.reel.task.TvBackExpireJob">-->
+        <!--<property name="tvBackService" ref="tvBackService"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="SpringQtzJobMethodTv" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->
+        <!--<property name="targetObject">-->
+            <!--<ref bean="tvBackExpire"/>-->
+        <!--</property>-->
+        <!--<property name="targetMethod">-->
+            <!--<value>doJob</value>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--<bean id="TvTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerBean">-->
+        <!--<property name="jobDetail" ref="SpringQtzJobMethodTv"></property>-->
+        <!--<property name="cronExpression" value="0 0 1 * * ?"></property>-->
+    <!--</bean>-->
+
+    <!--<bean id="SpringTvTriggerBeanFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">-->
+        <!--<property name="triggers">-->
+            <!--<list>-->
+                <!--<ref bean="TvTriggerBean"/>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!--business beans start-->
+
+
+    <!--business beans end -->
+
+
+</beans>

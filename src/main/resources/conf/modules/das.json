@@ -1,0 +1,40 @@
+{
+    conf:{
+
+    },
+    actions:[
+        {
+            uri:"/vaq/[\\w,\\d]*",
+            point:".VoteAndQuestionnaireAction"
+        },
+        {
+            uri:"/vaq/[\\w,\\d]*/[\\w,\\d]*",
+            point:".VoteAndQuestionnaireAction"
+        },
+        {
+            uri:"/vaq/[\\w,\\d]*/[\\w,\\d]*/[\\w,\\d]*",
+            point:".VoteAndQuestionnaireAction"
+        },
+        {
+            uri:"/vaq/[\\w,\\d]*/[\\w,\\d]*/[\\w,\\d]*/[\\w,\\d]*",
+            point:".VoteAndQuestionnaireAction"
+        },
+        {
+            uri:"/advice/[\\w,\\d]*",
+            point:".AdviceAction"
+        },
+        {
+            uri:"/advice/[\\w,\\d]*/[\\w,\\d]*",
+            point:".AdviceAction"
+        },
+        {
+            uri:"/advice/[\\w,\\d]*/[\\w,\\d]*/[\\w,\\d]*",
+            point:".AdviceAction"
+        },
+        {
+            uri:"/advice/[\\w,\\d]*/[\\w,\\d]*/[\\w,\\d]*/[\\w,\\d]*",
+            point:".AdviceAction"
+        }
+    ]
+}
+

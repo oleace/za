@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+    <!--base beans of framework start -->
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:conf/conf.properties</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="mongclientOptionFactory" class="com.boya.commons.MongoClientOptionWrapper">
+        <property name="connectionsPerHost" value="1000"/>
+        <property name="autoConnectRetry" value="true"/>
+    </bean>
+    <bean id="mongoClientOption" class="com.mongodb.MongoClientOptions"
+          factory-bean="mongclientOptionFactory" factory-method="getOptions"
+          singleton="true"/>
+    <bean id="mongoNode1" class="com.mongodb.ServerAddress">
+        <constructor-arg value="${mongo.host}"/>
+        <constructor-arg value="${mongo.port}"/>
+    </bean>
+    <bean id="mongo" class="com.mongodb.MongoClient">
+        <description>Mongo pool</description>
+        <constructor-arg type="java.util.List">
+            <list>
+                <ref bean="mongoNode1"/>
+            </list>
+        </constructor-arg>
+        <constructor-arg ref="mongoClientOption" type="com.mongodb.MongoClientOptions"/>
+    </bean>
+    <bean id="resourceProvider" class="org.canedata.provider.mongodb.MongoResourceProvider">
+        <description>Mongo resource provider</description>
+        <property name="mongo">
+            <ref bean="mongo"/>
+        </property>
+        <property name="defaultDbName">
+            <value>kiteServer</value>
+        </property>
+    </bean>
+    <bean id="cacheProvider" class="org.canedata.module.ehcache.EhcacheProvider">
+        <description>Ehcache provider</description>
+        <property name="cacheName" value="sampleCache"></property>
+        <property name="configFile" value="conf/ehcache.xml"></property>
+    </bean>
+    <bean id="mongoProvider" class="org.canedata.provider.mongodb.MongoProvider">
+        <description>EntityFactory by Mongo provider</description>
+    </bean>
+    <bean id="entityFactory"
+          class="org.canedata.provider.mongodb.entity.MongoEntityFactory"
+          factory-bean="mongoProvider" factory-method="getFactory" singleton="true">
+        <description>Mongo entity factory provider</description>
+        <constructor-arg type="java.lang.String" value="default"></constructor-arg>
+        <constructor-arg ref="resourceProvider"></constructor-arg>
+        <constructor-arg ref="cacheProvider"></constructor-arg>
+    </bean>
+    <bean id="sfResProvider" class="org.canedata.provider.fs.FsResourceProvider">
+        <description>Fs resource provider</description>
+        <property name="path">
+            <value>${storage}</value>
+        </property>
+    </bean>
+    <bean id="fsProvider" class="org.canedata.provider.fs.FsProvider">
+        <description>EntityFactory by Fs provider</description>
+    </bean>
+    <bean id="fsFactory" class="org.canedata.provider.fs.entity.FsEntityFactory"
+          factory-bean="fsProvider" factory-method="getFactory" singleton="true">
+        <description>Fs entity factory provider</description>
+        <constructor-arg type="java.lang.String" value="default"></constructor-arg>
+        <constructor-arg ref="sfResProvider"></constructor-arg>
+    </bean>
+
+
+</beans>

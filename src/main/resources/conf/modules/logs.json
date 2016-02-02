@@ -1,0 +1,18 @@
+{
+    conf:{
+
+    },
+    actions:[
+
+        {
+         uri:"/index",
+         point:".LogsMgtAction#index",
+         desc:"index "
+        }
+
+
+    ]
+
+
+}
+

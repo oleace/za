@@ -1,0 +1,56 @@
+{
+    conf:{
+
+    },
+    actions:[
+
+        {
+         uri:"/news/get",
+         point:".NewsAction#getNews",
+         desc:"newsService "
+        },
+        {
+            uri:"/news/syncLocal",
+            point:".NewsAction"
+        },
+        {
+          uri:"/news/delete",
+          point:".NewsAction#deleteNews",
+          desc:"newsService "
+        }
+    ,
+        {
+          uri:"/rotations/get",
+          point:".RotationServiceAction#getRotaions",
+          desc:"rotationService "
+        }
+      ,{
+        uri:"/clazz/get",
+        point:".ClazzServiceAction#get",
+        desc:" clazz service list"
+      }
+        ,{
+            uri:"/module/[\\w,\\d]*/get",
+            point:".ModuleServiceAction#get",
+            desc:" module service list"
+        }
+        ,
+        {
+            uri:"/app/syncApp",
+            point:".AppAction"
+        }
+        ,
+        {
+            uri:"/syncResearch",
+            point:".ResearchAction"
+        }
+        ,
+        {
+            uri:"/syncAdvice",
+            point:".AdviceAction"
+        }
+    ]
+
+
+}
+

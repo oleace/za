@@ -1,0 +1,56 @@
+{
+    conf:{
+        pageCount:"2",
+        pageSize:10,
+        '@import':"conf.properties"
+    },
+    actions:[
+        {
+            uri:"/index",
+            point:"com.boya.kites.reel.user.UserAction#index",
+            desc:"loginAction"
+        },
+        {
+            uri:"/login",
+            point:"com.boya.kites.reel.user.UserAction#login",
+            desc:"loginAction"
+        },
+        {
+            name:"logout",
+            uri:"/logout",
+            point:"com.boya.kites.reel.user.UserAction#logout",
+            desc:"loginAction"
+        },
+        {
+            name:"upload",
+            uri:"/upload",
+            point:"com.boya.kites.reel.cms.actions.HomeAction#intoUpLoad",
+            desc:"upload"
+        },
+        {
+            name:"getFileChildren",
+            uri:"/getFileChildren",
+            point:"com.boya.kites.reel.cms.actions.HomeAction#getFileChildren",
+            desc:"getFileChildren"
+        },
+        {
+            name:"getFileSiblings",
+            uri:"/getFileSiblings",
+            point:"com.boya.kites.reel.cms.actions.HomeAction#getFileSiblings",
+            desc:"getFileSiblings"
+        },
+        {
+            name:"resource",
+            uri:"/s/.*",
+            point:"com.boya.commons.ResLocationAction",
+            m:"s"
+        }
+    ],
+    modules:[
+
+
+    ],
+    interceptors:[
+
+    ]
+}

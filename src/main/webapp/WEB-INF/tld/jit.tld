@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN" "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+
+<taglib>
+  <tlibversion>1.0</tlibversion>
+  <jspversion>1.1</jspversion>
+  <shortname>jit</shortname>
+  <info>
+  	Java tag library for displaying server-side generated and manipulated images. 
+  	Contact us: fabianofranz at users.sourceforge.net.
+  </info>
+  
+  <tag>
+    <name>image</name>
+    <tagclass>net.sourceforge.jimagetaglib.tags.image.ImageTag</tagclass>
+    <bodycontent>jsp</bodycontent>
+	<info>
+		The basic tag for JImageTaglib. 
+		All the other tags will be placed on this tag's body.
+		The "src" parameter will be the relative path to the image (without your application 
+		context name). An example: the parameter for an image placed on 
+		http://localhost/application/images/test.gif will be /images/test.gif.
+		The other parameters follow html tag "img" parameters.
+	</info>
+    <attribute>
+      <name>src</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>name</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>border</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>alt</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>cssStyle</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>cache</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>resizeIfImageIsSmallerThanSpecifiedSize</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>title</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+			<name>onclick</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+  </tag>
+
+  <tag>
+    <name>filter</name>
+    <tagclass>net.sourceforge.jimagetaglib.tags.image.FilterTag</tagclass>
+    <bodycontent>empty</bodycontent>
+ 	<info>
+		Use this tag inside an image tag to apply a filter effect to the image.
+		The "filter" parameter is the filter class name, like this:
+		"net.sourceforge.jimagetaglib.filter.BlurFilter".
+	</info>
+    <attribute>
+      <name>filter</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    
+  </tag>
+  
+  <tag>
+    <name>resize</name>
+    <tagclass>net.sourceforge.jimagetaglib.tags.image.ResizeTag</tagclass>
+    <bodycontent>empty</bodycontent>
+ 	<info>
+		Use this tag inside an image tag to resize the image.
+		The ways to resizing an image is the following:
+		- Set the "width" AND "height" parameters;
+		- Set the "width" OR "height" parameter (the other one will be resized to keep 
+		  image's aspect);
+		- Set the "max" parameter. The major dimension (width or height) will be resized do 
+		  the specified dimension, and the other on will be resized to keep image's aspect.
+		You can't specify "max" AND ("width" AND/OR "height") parameters.
+	</info>
+    <attribute>
+      <name>width</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>height</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>max</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+  <tag>
+    <name>subimage</name>
+    <tagclass>net.sourceforge.jimagetaglib.tags.image.SubImageTag</tagclass>
+    <bodycontent>empty</bodycontent>
+ 	<info>
+		Use this tag inside an image tag to show only a part of the image, beside the 
+		following rule for creating a "rectangle" area:
+		- "x" parameter is the initial x image's position;
+		- "y" parameter is the initial y image's position;
+		- "width" parameter is the width from x,y;
+		- "height" parameter is the height from x,y.
+		Take care: if you set parameters that results in a rectangle that goes out of 
+		image's frontiers, the image will not be rendered.
+	</info>
+    <attribute>
+      <name>x</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>y</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>width</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>height</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+ 
+  <tag>
+    <name>barcode</name>
+    <tagclass>net.sourceforge.jimagetaglib.tags.barcode.BarcodeTag</tagclass>
+    <bodycontent>empty</bodycontent>
+	<info>
+		Generates a barcode for the specified code.
+	</info>
+    <attribute>
+      <name>code</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>height</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>name</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>border</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>alt</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+     <attribute>
+      <name>cache</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+   </tag>
+
+</taglib>
